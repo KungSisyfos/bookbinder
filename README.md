@@ -20,7 +20,7 @@ BookBinder allows users to catalog their book collections through ISBN scanning 
 ## 🛠️ Tech Stack
 
 **Frontend:**
-- Svelte (TBD)
+- Svelte
 - TypeScript
 - TailwindCSS
 
