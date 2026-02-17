@@ -4,22 +4,18 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon --exec ts-node src/server.ts",
+		"dev": "nodemon --exec tsx src/server.ts",
 		"build": "tsc",
 		"start": "node dist/server.js",
-		"lint": "eslint src/**/*.ts",
+		"lint": "eslint src",
 		"format": "prettier --write src/**/*.ts",
 		"test": "vitest",
-		"test:run": "vitest run",
-		"migrate": "node -r ts-node/register src/migrations/run.ts"
+		"test:run": "vitest run"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"type": "commonjs",
 	"dependencies": {
-		"@types/bcrypt": "^6.0.0",
-		"@types/pg": "^8.16.0",
 		"bcrypt": "^6.0.0",
 		"cors": "^2.8.6",
 		"dotenv": "^17.3.1",
@@ -32,17 +28,19 @@
 		"zod": "^4.3.6"
 	},
 	"devDependencies": {
+		"@types/bcrypt": "^6.0.0",
 		"@types/cors": "^2.8.19",
 		"@types/express": "^5.0.6",
 		"@types/jsonwebtoken": "^9.0.10",
 		"@types/morgan": "^1.9.10",
 		"@types/node": "^25.2.3",
+		"@types/pg": "^8.16.0",
 		"@typescript-eslint/eslint-plugin": "^8.56.0",
 		"@typescript-eslint/parser": "^8.56.0",
 		"eslint": "^10.0.0",
 		"nodemon": "^3.1.11",
 		"prettier": "^3.8.1",
-		"ts-node": "^10.9.2",
+		"tsx": "^4.21.0",
 		"typescript": "^5.9.3",
 		"vitest": "^4.0.18"
 	}
