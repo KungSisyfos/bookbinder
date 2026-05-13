@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
+import './config/database';
 
 dotenv.config();
 
@@ -19,7 +20,6 @@ app.use(morgan('dev'));
 app.get('/health', (req, res) => {
 	res.json({ status: 'ok', message: 'BookBinder API is running' });
 });
-
 // Import routes här senare
 // app.use('/api/auth', authRoutes);
 // app.use('/api/books', booksRoutes);
