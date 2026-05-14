@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import pool from '../config/database';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 
 const saltRounds = 12;
 
@@ -51,12 +51,11 @@ export const login = async (req: Request, res: Response) => {
 		if (!isPasswordVaild) {
 			return res.status(401).json({ message: 'Invalid password' });
 		}
+		const payload = { user_id: user.user_id, username: user.username };
+		const secret = process.env.JWT_SECRET as string;
+		const options: SignOptions = { expiresIn: process.env.JWT_EXPIRES_IN || '15m' };
 
-		const token = jwt.sign(
-			{ user_id: user.user_id, username: user.username },
-			process.env.JWT_SECRET!,
-			{ expiresIn: process.env.JWT_EXPIRES_IN! }
-		);
+		const token = jwt.sign(payload, secret, options);
 
 		res.json({
 			message: 'Login successful',
