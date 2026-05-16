@@ -50,3 +50,26 @@ export const getBooks = async (req: Request, res: Response) => {
 		res.status(500).json({ message: 'Failed to get books' });
 	}
 };
+
+export const deleteBook = async (req: Request<{ id: string }>, res: Response) => {
+	try {
+		const bookId = parseInt(req.params.id, 10);
+		const userId = req.user?.user_id;
+
+		if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+		if (isNaN(bookId)) return res.status(400).json({ message: 'Invalid book id' });
+
+		const result = await pool.query('DELETE FROM user_books WHERE user_id = $1 AND book_id = $2', [
+			userId,
+			bookId
+		]);
+
+		if (result.rowCount === 0)
+			return res.status(404).json({ message: 'Book not found in your collection' });
+
+		res.status(200).json({ message: 'Book deleted successfully' });
+	} catch (error) {
+		console.log('Error deleting book', error);
+		res.status(500).json({ message: 'Failed to delete book' });
+	}
+};
