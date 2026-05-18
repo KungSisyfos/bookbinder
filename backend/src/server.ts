@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import './config/database';
 import authRoutes from './routes/auth.routes';
 import booksRoutes from './routes/books.routes';
+import wishlistRoutes from './routes/wishlist.routes';
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.get('/health', (req, res) => {
 // Import routes här senare
 app.use('/api/auth', authRoutes);
 app.use('/api/books', booksRoutes);
+app.use('/api/wishlist', wishlistRoutes);
 
 // Error handling
 app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
