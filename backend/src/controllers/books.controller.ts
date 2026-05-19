@@ -1,7 +1,12 @@
 import { Request, Response } from 'express';
 import { Book } from '../types/models';
 import pool from '../config/database';
-import { getBookById, getOrCreateBook, userOwnsBook } from '../utils/bookHelpers';
+import {
+	getBookById,
+	getBookWithReviews,
+	getOrCreateBook,
+	userOwnsBook
+} from '../utils/bookHelpers';
 
 export const addBook = async (req: Request, res: Response) => {
 	try {
@@ -49,6 +54,16 @@ export const getBooks = async (req: Request, res: Response) => {
 		console.log('Error getting book', error);
 		res.status(500).json({ message: 'Failed to get books' });
 	}
+};
+
+export const getBook = async (req: Request<{ id: string }>, res: Response) => {
+	const bookId = parseInt(req.params.id, 10);
+	if (isNaN(bookId)) return res.status(400).json({ message: 'Invalid book id' });
+
+	const book = await getBookWithReviews(bookId);
+	if (!book.book_id) return res.status(404).json({ message: 'Book not found' });
+
+	res.json(book);
 };
 
 export const deleteBook = async (req: Request<{ id: string }>, res: Response) => {
