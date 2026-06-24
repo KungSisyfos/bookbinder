@@ -75,7 +75,7 @@ export const updateReview = async (req: Request<{ id: string }>, res: Response) 
 		);
 		res.status(200).json({ message: 'Review updated successfully' });
 	} catch (error) {
-		console.log('Error deleting review', error);
+		console.log('Error updating review', error);
 		res.status(500).json({ message: 'Failed to update review' });
 	}
 };
