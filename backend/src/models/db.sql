@@ -32,11 +32,11 @@ CREATE TABLE user_books (
 
 -- Reviews
 CREATE TABLE reviews (
-    id SERIAL PRIMARY KEY,
+    review_id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     book_id INTEGER REFERENCES books(id) ON DELETE CASCADE,
     rating INTEGER CHECK (rating >= 1 AND rating <= 5),
-    review_text TEXT,
+    text TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(user_id, book_id)
