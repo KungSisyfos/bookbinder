@@ -9,10 +9,6 @@ export const register = async (req: Request, res: Response) => {
 	try {
 		const { username, password, email } = req.body;
 
-		if (!username || !password || !email) {
-			return res.status(400).json({ message: 'Username, password, and email are required' });
-		}
-
 		const hashedPassword = await bcrypt.hash(password, saltRounds);
 
 		const result = await pool.query(
@@ -33,13 +29,11 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
 	try {
-		const { username, password } = req.body;
+		const { usernameOrEmail, password } = req.body;
 
-		if (!username || !password) {
-			return res.status(400).json({ message: 'Username and password are required' });
-		}
-
-		const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+		const result = await pool.query('SELECT * FROM users WHERE username = $1 OR email = $1', [
+			usernameOrEmail
+		]);
 
 		if (result.rows.length === 0) {
 			return res.status(401).json({ message: 'Invalid username' });
