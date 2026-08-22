@@ -14,10 +14,6 @@ export const addBook = async (req: Request, res: Response) => {
 		const userId = req.user?.user_id;
 		if (!userId) return res.status(401).json({ message: 'Unauthorized' });
 
-		if (!isbn || !title) {
-			return res.status(400).json({ message: 'ISBN and title are required' });
-		}
-
 		const bookId = await getOrCreateBook(isbn, title, author);
 
 		if (await userOwnsBook(userId, bookId)) {
@@ -58,7 +54,6 @@ export const getBooks = async (req: Request, res: Response) => {
 
 export const getBook = async (req: Request<{ id: string }>, res: Response) => {
 	const bookId = parseInt(req.params.id, 10);
-	if (isNaN(bookId)) return res.status(400).json({ message: 'Invalid book id' });
 
 	const book = await getBookWithReviews(bookId);
 	if (!book.book_id) return res.status(404).json({ message: 'Book not found' });
@@ -72,7 +67,6 @@ export const deleteBook = async (req: Request<{ id: string }>, res: Response) =>
 		const userId = req.user?.user_id;
 
 		if (!userId) return res.status(401).json({ message: 'Unauthorized' });
-		if (isNaN(bookId)) return res.status(400).json({ message: 'Invalid book id' });
 
 		const result = await pool.query('DELETE FROM user_books WHERE user_id = $1 AND book_id = $2', [
 			userId,
