@@ -10,9 +10,6 @@ export const addReview = async (req: Request, res: Response) => {
 		if (!userId) return res.status(401).json({ message: 'Unauthorized' });
 		const { book_id, rating, text } = req.body as Review;
 
-		if (rating === undefined && text === undefined)
-			return res.status(400).json({ message: 'Rating or text is required' });
-
 		const book = await getBookById(book_id);
 		if (!book) {
 			res.status(404).json({ message: 'Book not found' });
@@ -51,11 +48,8 @@ export const updateReview = async (req: Request<{ id: string }>, res: Response) 
 		if (!userId) return res.status(401).json({ message: 'Unauthorized' });
 
 		const review_id = parseInt(req.params.id, 10);
-		if (isNaN(review_id)) return res.status(400).json({ message: 'Invalid review id' });
-		const { rating, text } = req.body as Review;
 
-		if (rating === undefined && text === undefined)
-			return res.status(400).json({ message: 'Rating or text is required' });
+		const { rating, text } = req.body as Review;
 
 		const review = await getReviewById(review_id);
 		if (!review) {
@@ -85,7 +79,6 @@ export const deleteReview = async (req: Request<{ id: string }>, res: Response) 
 		const userId = req.user?.user_id;
 		if (!userId) return res.status(401).json({ message: 'Unauthorized' });
 		const review_id = parseInt(req.params.id, 10);
-		if (isNaN(review_id)) return res.status(400).json({ message: 'Invalid review id' });
 
 		const review = await getReviewById(review_id);
 		if (!review) {

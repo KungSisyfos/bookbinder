@@ -47,13 +47,12 @@ export const addToWishlist = async (req: Request, res: Response) => {
 
 export const removeFromWishlist = async (req: Request, res: Response) => {
 	try {
-		const bookId = parseInt(req.body.book_id, 10);
 		const userId = req.user?.user_id;
 		if (!userId) return res.status(401).json({ message: 'Unauthorized' });
 
 		const result = await pool.query('DELETE FROM wishlists WHERE user_id = $1 AND book_id = $2', [
 			userId,
-			bookId
+			req.body.book_id
 		]);
 		if (result.rowCount === 0)
 			return res.status(404).json({ message: 'Book not found in wishlist' });

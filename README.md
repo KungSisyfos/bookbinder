@@ -20,20 +20,24 @@ BookBinder allows users to catalog their book collections through ISBN scanning 
 ## 🛠️ Tech Stack
 
 **Frontend:**
+
 - Svelte
 - TypeScript
 - TailwindCSS
 
 **Backend:**
+
 - Node.js
 - Express.js
 - JWT for authentication
 - RESTful API architecture
 
 **Database:**
+
 - PostgreSQL
 
 **External Services:**
+
 - ISBN/Book Data API (TBD)
 
 ## 🏗️ Project Structure
@@ -182,11 +186,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👤 Author
 
-**Your Name**
+**Philip Andersson**
+
 - GitHub: [@KungSisyfos](https://github.com/KungSisyfos)
 - Portfolio: philipandersson.dev
-- LinkedIn: [Philip Andersson (https://www.linkedin.com/in/philip-andersson-022549228/)]
+- LinkedIn: [Philip Andersson](https://www.linkedin.com/in/philip-andersson-022549228/)
 
 ---
 
-*This project is being developed as a portfolio piece to demonstrate full-stack web development skills, including API design, authentication, database management, and modern frontend development.*
+_This project is being developed as a portfolio piece to demonstrate full-stack web development skills, including API design, authentication, database management, and modern frontend development._
